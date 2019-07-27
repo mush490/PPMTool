@@ -28,7 +28,7 @@ public class ProjectService {
         Project project = projectRepository.findByProjectIdentifier(projectId.toUpperCase());
 
         if (project == null)
-            throw new ProjectIdException("Project does not exist");
+            throw new ProjectIdException("Project Id '" + projectId + "' does not exist");
 
         return project;
     }
@@ -39,6 +39,9 @@ public class ProjectService {
 
     public void deleteProject(String projectId){
         Project project = findProjectByIdentifier(projectId.toUpperCase());
+
+        if (project == null)
+            throw new ProjectIdException("Project Id '" + projectId + "' does not exist");
 
         projectRepository.delete(project);
     }
