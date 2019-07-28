@@ -13,7 +13,8 @@ import javax.validation.Valid;
 
 
 @RestController
-@RequestMapping("/api/project")
+@RequestMapping("/api/projects")
+@CrossOrigin
 public class ProjectController {
 
     @Autowired
@@ -23,6 +24,7 @@ public class ProjectController {
     private MapValidationErrorService mapValidationErrorService;
 
     @PostMapping("")
+    @CrossOrigin
     public ResponseEntity<?> createNewProject(@Valid @RequestBody Project project, BindingResult result){
 
         ResponseEntity<?> errorMap = mapValidationErrorService.validate(result);
@@ -43,7 +45,7 @@ public class ProjectController {
         return new ResponseEntity<Project>(project, HttpStatus.OK);
     }
 
-    @GetMapping("/all")
+    @GetMapping("")
     public Iterable<Project> getAllProjects(){
 
         return projectService.findAllProjects();
