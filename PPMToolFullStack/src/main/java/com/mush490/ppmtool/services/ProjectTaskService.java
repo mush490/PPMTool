@@ -2,7 +2,9 @@ package com.mush490.ppmtool.services;
 
 import com.mush490.ppmtool.domain.Backlog;
 import com.mush490.ppmtool.domain.ProjectTask;
+import com.mush490.ppmtool.exceptions.ProjectNotFoundException;
 import com.mush490.ppmtool.repositories.BacklogRepository;
+import com.mush490.ppmtool.repositories.ProjectRepository;
 import com.mush490.ppmtool.repositories.ProjectTaskRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,10 +19,15 @@ public class ProjectTaskService {
     @Autowired
     private ProjectTaskRepository projectTaskRepository;
 
+    @Autowired
+    private ProjectRepository projectRepository;
+
 
     public ProjectTask addProjectTask(String projectIdentifier, ProjectTask projectTask){
 
         //Exceptions: Project not found
+        if (projectRepository.findByProjectIdentifier(projectIdentifier.toUpperCase()) == null)
+            throw new ProjectNotFoundException("Project " + projectIdentifier + " does not exist");
 
         //PTs to be added to a specific project, project != null, BL exists
         Backlog backlog = backlogRepository.findByProjectIdentifier(projectIdentifier);
