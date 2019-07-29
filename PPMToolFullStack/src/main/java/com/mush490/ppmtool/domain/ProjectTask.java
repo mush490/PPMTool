@@ -1,5 +1,6 @@
 package com.mush490.ppmtool.domain;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
@@ -27,9 +28,14 @@ public class ProjectTask {
     private Backlog backlog;
 
     @Column(updatable = false)
-    private String projectIdentifer;
-    private Date create_At;
-    private Date update_At;
+    private String projectIdentifier;
+
+    @JsonFormat(pattern = "MM-dd-yyyy")
+    @Column(updatable = false)
+    private Date created_At;
+
+    @JsonFormat(pattern = "MM-dd-yyyy")
+    private Date updated_At;
 
     public ProjectTask() {
     }
@@ -90,38 +96,38 @@ public class ProjectTask {
         this.dueDate = dueDate;
     }
 
-    public String getProjectIdentifer() {
-        return projectIdentifer;
+    public String getProjectIdentifier() {
+        return projectIdentifier;
     }
 
-    public void setProjectIdentifer(String projectIdentifer) {
-        this.projectIdentifer = projectIdentifer;
+    public void setProjectIdentifier(String projectIdentifer) {
+        this.projectIdentifier = projectIdentifer;
     }
 
-    public Date getCreate_At() {
-        return create_At;
+    public Date getCreated_At() {
+        return created_At;
     }
 
-    public void setCreate_At(Date create_At) {
-        this.create_At = create_At;
+    public void setCreated_At(Date create_At) {
+        this.created_At = create_At;
     }
 
-    public Date getUpdate_At() {
-        return update_At;
+    public Date getUpdated_At() {
+        return updated_At;
     }
 
-    public void setUpdate_At(Date update_At) {
-        this.update_At = update_At;
+    public void setUpdated_At(Date update_At) {
+        this.updated_At = update_At;
     }
 
     @PrePersist
     protected void onCreate(){
-        this.create_At = new Date();
+        this.created_At = new Date();
     }
 
     @PreUpdate
     protected void onUpdate(){
-        this.update_At = new Date();
+        this.updated_At = new Date();
     }
 
     public Backlog getBacklog() {
@@ -143,9 +149,9 @@ public class ProjectTask {
                 ", priority=" + priority +
                 ", dueDate=" + dueDate +
                 ", backlog=" + backlog +
-                ", projectIdentifer='" + projectIdentifer + '\'' +
-                ", create_At=" + create_At +
-                ", update_At=" + update_At +
+                ", projectIdentifier='" + projectIdentifier + '\'' +
+                ", created_At=" + created_At +
+                ", updated_At=" + updated_At +
                 '}';
     }
 }

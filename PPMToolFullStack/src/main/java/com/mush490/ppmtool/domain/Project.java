@@ -1,6 +1,7 @@
 package com.mush490.ppmtool.domain;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
@@ -31,15 +32,15 @@ public class Project {
     @JsonFormat(pattern = "mm-dd-yyyy")
     private Date end_date;
 
-    @JsonFormat(pattern = "mm-dd-yyyy")
+    @JsonFormat(pattern = "MM-dd-yyyy")
     @Column(updatable = false)
     private Date created_At;
 
-    @JsonFormat(pattern = "mm-dd-yyyy")
+    @JsonFormat(pattern = "MM-dd-yyyy")
     private Date updated_At;
 
     @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "project")
-
+    @JsonIgnore
     private Backlog backlog;
 
     public Project() {
